@@ -12,6 +12,9 @@ from uvicorn.main import run
 
 async def app(scope, receive, send):
     assert scope["type"] == "http"
+    # {'type': 'http.request', 'body': b'', 'more_body': False}
+    event = await receive()
+    print('+' * 100, event)
     await send({"type": "http.response.start", "status": 204, "headers": []})
     await send({"type": "http.response.body", "body": b"", "more_body": False})
 
